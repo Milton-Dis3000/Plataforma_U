@@ -13,7 +13,7 @@ class DB
 
             $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
 
-            $dsn = "mysql:host=$hostname;dbname=$dbname";
+            $dsn = "mysql:host=$hostname;id21127382_proyecto593=$dbname";
             $this->pdo = new PDO($dsn, $username, $password, $options);
 
         } catch (PDOException $e) {
