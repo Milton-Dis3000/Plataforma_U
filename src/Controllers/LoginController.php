@@ -25,14 +25,16 @@ class LoginController
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-        if($resultado){
+        if ($resultado) {
             session_start();
             $_SESSION["usuario"] = $resultado;
-       
-            include $_SERVER["DOCUMENT_ROOT"] . "/src/Views/dashboard.php";
 
-        } else{
+            $_SESSION["correoUsuario"] = $resultado["correo"];
+            $_SESSION["rolIdUsuario"] = $resultado["rol_id"];
+
+            include $_SERVER["DOCUMENT_ROOT"] . "/src/Views/dashboard.php";
+        } else {
             echo "No existe";
         }
-    } 
+    }
 }

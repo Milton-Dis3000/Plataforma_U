@@ -1,6 +1,9 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// Iniciar la sesión antes de cualquier salida
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -109,29 +112,25 @@ ini_set('display_errors', 1);
                                     <th>#</th>
                                     <th>Email/Usuario</th>
                                     <th>Permiso</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <li><a href="/src/Controllers/Administrador/PermisosController.php?action=mostrarPermisos"></a></li>
-                                <?php if (isset($correoUsuario) && isset($nombreRol)) { ?>
-                                    <li><a href="#">(<?= $correoUsuario ?> - <?= $nombreRol ?>)</a></li>
-                                <?php } else { ?>
-
-                                <?php } ?>
-
-
+                                <?php foreach ($resultadosInnerJoin as $row) : ?>
+                                    <tr>
+                                        <td><?= $row['datos_id']; ?></td>
+                                        <td><?= $row['correo']; ?></td>
+                                        <td><?= $row['nombre_rol']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-
                 <script>
-                    new DataTable('#example');
+                    $(document).ready(function() {
+                        $('#example').DataTable();
+                    });
                 </script>
 
 

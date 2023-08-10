@@ -1,6 +1,4 @@
 <?php
-
-
 require_once($_SERVER["DOCUMENT_ROOT"] . "/src/Model/connection.php");
 
 class PermisosController
@@ -12,26 +10,22 @@ class PermisosController
         $this->connection = new DB;
     }
 
-    public function mostrarPermisos()
+    public function obtenerResultadosInnerJoin()
     {
         session_start();
-        $correoUsuario = isset($_SESSION["correoUsuario"]) ? $_SESSION["correoUsuario"] : "";
-        $rolIdUsuario = isset($_SESSION["rolIdUsuario"]) ? $_SESSION["rolIdUsuario"] : "";
 
-        // Conexión a la base de datos para obtener el nombre del rol
-        $connection = new DB();
-        $query = "SELECT nombre_rol FROM roles WHERE id_rol = :rol_id";
-        $stmt = $connection->pdo->prepare($query);
-        $stmt->bindParam(':rol_id', $rolIdUsuario, PDO::PARAM_INT);
+        $query = "SELECT * FROM usuarios_login
+                  INNER JOIN roles ON usuarios_login.id_ul = roles.id_rol
+                  INNER JOIN usuarios_datos ON usuarios_login.datos_id = usuarios_datos.id_ud
+                  WHERE usuarios_login.id_ul = :usuario_id";
+        $stmt = $this->connection->pdo->prepare($query);
+        $stmt->bindParam(':usuario_id', $_SESSION["rolIdUsuario"], PDO::PARAM_INT);
         $stmt->execute();
-        $resultadoRol = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $nombreRol = isset($resultadoRol["nombre_rol"]) ? $resultadoRol["nombre_rol"] : "Rol Desconocido";
-
-        // Pasar las variables de sesión a la vista
-        $_SESSION["correoUsuario"] = $correoUsuario;
-        $_SESSION["nombreRol"] = $nombreRol;
-
-        include $_SERVER["DOCUMENT_ROOT"] . "/src/Views/Administrador/VistaPermisos.php";
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
+
+$permisosController = new PermisosController();
+$resultadosInnerJoin = $permisosController->obtenerResultadosInnerJoin();
+
+include $_SERVER["DOCUMENT_ROOT"] . "/src/Views/Administrador/VistaPermisos.php";

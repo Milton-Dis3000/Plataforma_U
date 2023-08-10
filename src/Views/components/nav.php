@@ -25,6 +25,12 @@
             </div>
           </div>
 
+          <div>
+          <li><a href="#">Cerrar sesión (<?= $correoUsuario ?> - <?= $nombreRol ?>)</a></li> <!-- Mostrar el correo y el nombre del rol del usuario -->
+
+
+          </div>
+
      
           <div class="p-4 mb-4">
             <div class="flex flex-col border-b border-gray-600 pb-2">
