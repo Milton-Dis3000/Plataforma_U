@@ -26,7 +26,7 @@
           </div>
 
           <div>
-          <li><a href="#">Cerrar sesión (<?= $correoUsuario ?> - <?= $nombreRol ?>)</a></li> <!-- Mostrar el correo y el nombre del rol del usuario -->
+          <!-- <li><a href="#">Cerrar sesión (<?= $correoUsuario ?> - <?= $nombreRol ?>)</a></li> Mostrar el correo y el nombre del rol del usuario -->
 
 
           </div>

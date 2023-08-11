@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-08-2023 a las 06:23:54
+-- Tiempo de generación: 11-08-2023 a las 20:00:03
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id_rol` int NOT NULL AUTO_INCREMENT,
   `nombre_rol` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -104,7 +104,11 @@ CREATE TABLE IF NOT EXISTS `roles` (
 INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
 (1, 'admin'),
 (2, 'maestro'),
-(3, 'alumno');
+(3, 'alumno'),
+(4, 'alumno'),
+(5, 'maestro'),
+(6, 'alumno'),
+(7, 'maestro');
 
 -- --------------------------------------------------------
 
@@ -121,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `usuarios_datos` (
   `rol_id` int DEFAULT NULL,
   PRIMARY KEY (`id_ud`),
   KEY `rol_id` (`rol_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios_datos`
@@ -130,7 +134,9 @@ CREATE TABLE IF NOT EXISTS `usuarios_datos` (
 INSERT INTO `usuarios_datos` (`id_ud`, `nombre`, `direccion`, `fecha_nacimiento`, `rol_id`) VALUES
 (1, 'Milthon Sigcha', 'Latacunga', '1985-11-29', 1),
 (2, 'Juan', 'Garcia', NULL, 2),
-(3, 'Alumno', 'Prueba', NULL, 3);
+(3, 'Alumno', 'Prueba', NULL, 3),
+(4, 'Erika', 'Luna', NULL, 3),
+(5, 'Jorge', 'Xavier', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -145,18 +151,23 @@ CREATE TABLE IF NOT EXISTS `usuarios_login` (
   `contra` varchar(150) DEFAULT NULL,
   `datos_id` int DEFAULT NULL,
   `rol_id` int DEFAULT NULL,
+  `roles` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_ul`),
   KEY `datos_id` (`datos_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios_login`
 --
 
-INSERT INTO `usuarios_login` (`id_ul`, `correo`, `contra`, `datos_id`, `rol_id`) VALUES
-(1, 'admin@admin', 'admin', 1, 1),
-(2, 'maestro@maestro', 'maestro', 2, 2),
-(3, 'alumno@alumno', 'alumno', 3, 3);
+INSERT INTO `usuarios_login` (`id_ul`, `correo`, `contra`, `datos_id`, `rol_id`, `roles`) VALUES
+(1, 'admin@admin', 'admin', 1, 1, NULL),
+(2, 'maestro@maestro', 'maestro', 2, 2, NULL),
+(3, 'alumno@alumno', 'alumno', 3, 3, NULL),
+(4, 'erika@luna', 'alumno', 4, 3, NULL),
+(5, 'jorge@xavier', 'maestro', 5, 2, NULL),
+(6, 'luis@gabriel', 'alumno', 6, 2, NULL),
+(7, 'enrique@solis', 'maestro', 7, 3, NULL);
 
 --
 -- Restricciones para tablas volcadas
